@@ -3,60 +3,134 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>prendia.art</title>
+    <title>prendia.art - Welcome</title>
 
     <style>
-        /* Basic Reset & Fonts */
-        @font-face {
-        font-family: 'Funnel Display';
-        src: url('fonts/FunnelDisplay-Regular.ttf') format('truetype');
-        font-weight: normal;
-        font-style: normal;
-}
-        body {
-            font-family: 'Funnel Display', sans-serif;
-            background-color: #f8f8f8;
-            color: #222;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background-color: #f8f8f8;
+            color: #222;
             line-height: 1.6;
         }
 
-        /* Navigation */
-        nav {
+        /* Hamburger Menu Button */
+        .menu-btn {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 200;
             background: #fff;
-            width: 100%;
-            padding: 1rem 2rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            z-index: 100;
-        }
-        nav a {
-            text-decoration: none;
-            color: #222;
-            font-weight: bold;
-        }
-        nav a:hover {
-            color: #555;
+            border: none;
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
         }
 
-        /* Sections */
-        section {
+        .menu-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100vh;
+            background: #fff;
+            box-shadow: 2px 0 15px rgba(0,0,0,0.1);
+            transition: left 0.3s ease;
+            z-index: 150;
+            padding: 2rem;
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 2rem;
+            color: #222;
+            font-size: 1.5rem;
+        }
+
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .sidebar nav a {
+            text-decoration: none;
+            color: #222;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            transition: background 0.2s ease;
+            font-weight: 500;
+        }
+
+        .sidebar nav a:hover {
+            background: #f0f0f0;
+        }
+
+        .sidebar nav a.active {
+            background: #222;
+            color: #fff;
+        }
+
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 100;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Main Content */
+        .content {
             max-width: 800px;
-            margin: 4rem auto;
-            padding: 0 2rem;
+            margin: 0 auto;
+            padding: 6rem 2rem 4rem 2rem;
         }
-        h1, h2 {
-            text-align: center;
-            margin-bottom: 1rem;
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: #222;
         }
+
         p {
-            margin-bottom: 1rem;
+            font-size: 1.2rem;
             color: #555;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .tagline {
+            font-size: 1.4rem;
+            color: #666;
+            font-style: italic;
+            margin-top: 3rem;
         }
 
         /* Footer */
@@ -64,158 +138,58 @@
             text-align: center;
             padding: 2rem 1rem;
             color: #888;
-            border-top: 1px solid #ddd;
             margin-top: 4rem;
-        }
-
-        /* Reading List Table */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 2rem;
-        }
-        th, td {
-            padding: 0.5rem;
-            border-bottom: 1px solid #ddd;
-            text-align: left;
-        }
-
-        /* Simple Gallery */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-        .gallery img {
-            width: 100%;
-            display: block;
-            border-radius: 8px;
-        }
-
-        /* Contact Form */
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        input, textarea {
-            padding: 0.5rem;
-            font-size: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            width: 100%;
-        }
-        button {
-            padding: 0.75rem;
-            font-size: 1rem;
-            background: #222;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #555;
         }
 
     </style>
 </head>
 
 <body>
-<!-- Navigation -->
-<nav>
-    <a href="#home">Home</a>
-    <a href="#essays">Essays</a>
-    <a href="#art">Art</a>
-    <a href="#reading">Reading List</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-</nav>
+<!-- Menu Button -->
+<button class="menu-btn" onclick="toggleSidebar()">☰</button>
 
-<!-- Home time -->
-<section id="home">
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    <h2>prendia.art</h2>
+    <nav>
+        <a href="index.html" class="active">Home</a>
+        <a href="essays.html">Essays</a>
+        <a href="things.html">Other Things</a>
+        <a href="reading.html">Reading List</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+</div>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<!-- Main Content -->
+<div class="content">
     <h1>Hello!</h1>
-    <p>Welcome! This is a tiny rectangle! </p>
-    <p> </p>
-    <p>In the beginning was the word ... and so very few working web links.</p>
-</section>
+    <p>Welcome to my little tiny rectangle on the internet where I share thoughts on books, history bits, psychology stuff, art, and anything else cool along the way.</p>
+    <p>This is a space for planting seeds—ideas, reflections, conversations. Some might grow into something, some might not. Either way, they're here.</p>
+    <p class="tagline">In the beginning was the word...</p>
+</div>
 
-<!-- Essaysss -->
-<section id="essays">
-    <h2>Essays</h2>
-    <p>Broken links to essays...</p>
-    <ul>
-        <li><a href="#">Birds</a></li>
-        <li><a href="#">Book</a></li>
-        <li><a href="#">Book2</a></li>
-        <li><a href="#">Essay</a></li>
-    </ul>
-</section>
-
-<!-- Art -->
-<section id="art">
-    <h2>Art</h2>
-    <div class="gallery">
-        <img src="placeholder1.jpg" alt="Art 1">
-        <img src="placeholder2.jpg" alt="Art 2">
-        <img src="placeholder3.jpg" alt="Art 3">
-    </div>
-</section>
-
-<!-- Reading List -->
-/
-<section id="reading">
-    <h2>Reading List</h2>
-    <table>
-        <thead>
-        <tr>
-            <th>Book</th>
-            <th>Author</th>
-            <th>Status</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>Book 1 Title</td>
-            <td>Book 1 Author</td>
-            <td>Read/Reading</td>
-        </tr>
-        <tr>
-            <td>Book 2 Title</td>
-            <td>Book 2 Author</td>
-            <td>Read/Reading</td>
-        </tr>
-        </tbody>
-    </table>
-</section>
-*/
-
-<!-- About -->
-<section id="about">
-    <h2>About</h2>
-    <p>Hello fellow internet person. My name is Prendia. I'm fascinated by the threads that connect ideas, people
-        and the world. I started out exploring maths, physics and computer science, wanting to understand the world
-        through algorithms and logic. I tried to fit the whole world into a little deterministic box. Over time, I
-        realised that life tends not to play that way and instead found the most interesting questions sit in the relationships between people... In art, books,
-        poetry, music...
-        Here, I am looking to share bits of this thread.
-        It's a space to explore, make (some) sense and hopefully connect with others along
-        the way.</p>
-</section>
-
-<!-- Contact stuff -->
-<section id="contact">
-    <h2>Contact</h2>
-    <p>If you’d like to get in touch, this doesn't yet work. But it will soon. <a href="mailto:hello@prendia.art">hello@prendia.art</a> or use the form below:</p>
-    <form action="https://formspree.io/f/yourformid" method="POST">
-        <input type="text" name="name" placeholder="Your Name" required>
-        <input type="email" name="_replyto" placeholder="Your Email" required>
-        <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
-        <button type="submit">Send</button>
-    </form>
-</section>
-
-<!-- Footer -->
 <footer>© 2025 Prendia Qehaja</footer>
+
+<script>
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        sidebar.classList.toggle('open');
+        overlay.classList.toggle('active');
+    }
+
+    // Close sidebar when pressing Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('active');
+        }
+    });
+</script>
 </body>
 </html>
