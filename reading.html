@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reading List - prendia.art</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      background-color: #f8f8f8;
+      color: #222;
+      line-height: 1.6;
+    }
+
+    .menu-btn {
+      position: fixed;
+      top: 2rem;
+      left: 2rem;
+      z-index: 200;
+      background: #fff;
+      border: none;
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      font-size: 1.5rem;
+      transition: transform 0.3s ease;
+    }
+
+    .menu-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -300px;
+      width: 300px;
+      height: 100vh;
+      background: #fff;
+      box-shadow: 2px 0 15px rgba(0,0,0,0.1);
+      transition: left 0.3s ease;
+      z-index: 150;
+      padding: 2rem;
+    }
+
+    .sidebar.open {
+      left: 0;
+    }
+
+    .sidebar h2 {
+      margin-bottom: 2rem;
+      color: #222;
+      font-size: 1.5rem;
+    }
+
+    .sidebar nav {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .sidebar nav a {
+      text-decoration: none;
+      color: #222;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      transition: background 0.2s ease;
+      font-weight: 500;
+    }
+
+    .sidebar nav a:hover {
+      background: #f0f0f0;
+    }
+
+    .sidebar nav a.active {
+      background: #222;
+      color: #fff;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      z-index: 100;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 6rem 2rem 4rem 2rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #222;
+    }
+
+    .intro {
+      font-size: 1.1rem;
+      color: #555;
+      margin-bottom: 3rem;
+    }
+
+    table {
+      width: 100%;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    thead {
+      background: #222;
+      color: #fff;
+    }
+
+    th {
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    td {
+      padding: 1rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:hover {
+      background: #fafafa;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .status.reading {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .status.read {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: #888;
+      margin-top: 4rem;
+    }
+
+  </style>
+</head>
+
+<body>
+<button class="menu-btn" onclick="toggleSidebar()">☰</button>
+
+<div class="sidebar" id="sidebar">
+  <h2>prendia.art</h2>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="essays.html">Essays</a>
+    <a href="things.html">Other Things</a>
+    <a href="reading.html" class="active">Reading List</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</div>
+
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<div class="content">
+  <h1>Reading List</h1>
+  <p class="intro">Books I'm reading or have read. Always looking for recommendations.</p>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Book</th>
+      <th>Author</th>
+      <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>The Cosmic Serpent</td>
+      <td>Jeremy Narby</td>
+      <td><span class="status read">Read</span></td>
+    </tr>
+    <tr>
+      <td>Other Minds</td>
+      <td>Peter Godfrey-Smith</td>
+      <td><span class="status read">Read</span></td>
+    </tr>
+    <tr>
+      <td>Modern Man in Search of a Soul</td>
+      <td>Carl Jung</td>
+      <td><span class="status reading">Reading</span></td>
+    </tr>
+    <tr>
+      <td>The Master and His Emissary</td>
+      <td>Iain McGilchrist</td>
+      <td><span class="status reading">Reading</span></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<footer>© 2025 Prendia Qehaja</footer>
+
+<script>
+  function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('active');
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('overlay').classList.remove('active');
+    }
+  });
+</script>
+</body>
+</html>
