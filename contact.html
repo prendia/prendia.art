@@ -49,6 +49,7 @@
       transition: left 0.3s ease;
       z-index: 150;
       padding: 2rem;
+      overflow-y: auto;
     }
 
     .sidebar.open {
@@ -157,14 +158,14 @@
       text-decoration: underline;
     }
 
-    form {
+    .contact-form {
       background: #fff;
       padding: 2rem;
       border-radius: 12px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
 
-    form h2 {
+    .contact-form h2 {
       margin-bottom: 1.5rem;
       color: #222;
     }
@@ -173,14 +174,15 @@
       margin-bottom: 1.5rem;
     }
 
-    label {
+    .form-group label {
       display: block;
       margin-bottom: 0.5rem;
       color: #222;
       font-weight: 500;
     }
 
-    input, textarea {
+    .form-group input,
+    .form-group textarea {
       width: 100%;
       padding: 0.75rem;
       font-size: 1rem;
@@ -189,17 +191,18 @@
       font-family: inherit;
     }
 
-    input:focus, textarea:focus {
+    .form-group input:focus,
+    .form-group textarea:focus {
       outline: none;
       border-color: #222;
     }
 
-    textarea {
+    .form-group textarea {
       resize: vertical;
       min-height: 150px;
     }
 
-    button {
+    .submit-btn {
       width: 100%;
       padding: 0.75rem;
       font-size: 1rem;
@@ -212,7 +215,7 @@
       transition: background 0.2s ease;
     }
 
-    button:hover {
+    .submit-btn:hover {
       background: #444;
     }
 
@@ -266,26 +269,27 @@
     </div>
   </div>
 
-  <form action="https://formspree.io/f/yourformid" method="POST">
+  <div class="contact-form">
     <h2>Or Send a Message</h2>
+    <form action="https://formspree.io/f/yourformid" method="POST">
+      <div class="form-group">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" required>
+      </div>
 
-    <div class="form-group">
-      <label for="name">Your Name</label>
-      <input type="text" id="name" name="name" required>
-    </div>
+      <div class="form-group">
+        <label for="email">Your Email</label>
+        <input type="email" id="email" name="_replyto" required>
+      </div>
 
-    <div class="form-group">
-      <label for="email">Your Email</label>
-      <input type="email" id="email" name="_replyto" required>
-    </div>
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required></textarea>
+      </div>
 
-    <div class="form-group">
-      <label for="message">Message</label>
-      <textarea id="message" name="message" required></textarea>
-    </div>
-
-    <button type="submit">Send Message</button>
-  </form>
+      <button type="submit" class="submit-btn">Send Message</button>
+    </form>
+  </div>
 </div>
 
 <footer>© 2025 Prendia Qehaja</footer>
