@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Reading List - prendia.art</title>
+  <title>Essays - prendia.art</title>
 
   <style>
     * {
@@ -19,6 +19,7 @@
       line-height: 1.6;
     }
 
+    /* Hamburger Menu Button */
     .menu-btn {
       position: fixed;
       top: 2rem;
@@ -38,6 +39,7 @@
       transform: scale(1.05);
     }
 
+    /* Sidebar */
     .sidebar {
       position: fixed;
       top: 0;
@@ -85,6 +87,7 @@
       color: #fff;
     }
 
+    /* Overlay */
     .overlay {
       position: fixed;
       top: 0;
@@ -103,8 +106,9 @@
       visibility: visible;
     }
 
+    /* Main Content */
     .content {
-      max-width: 900px;
+      max-width: 800px;
       margin: 0 auto;
       padding: 6rem 2rem 4rem 2rem;
     }
@@ -121,56 +125,43 @@
       margin-bottom: 3rem;
     }
 
-    table {
-      width: 100%;
+    .essay-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .essay-item {
       background: #fff;
+      padding: 2rem;
       border-radius: 12px;
-      overflow: hidden;
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    thead {
-      background: #222;
-      color: #fff;
+    .essay-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
-    th {
-      padding: 1rem;
-      text-align: left;
-      font-weight: 600;
+    .essay-item h3 {
+      margin-bottom: 0.5rem;
+      color: #222;
+      font-size: 1.4rem;
     }
 
-    td {
-      padding: 1rem;
-      border-bottom: 1px solid #f0f0f0;
+    .essay-item a {
+      text-decoration: none;
+      color: inherit;
     }
 
-    tr:last-child td {
-      border-bottom: none;
+    .essay-item p {
+      color: #666;
+      font-size: 1rem;
+      margin: 0;
     }
 
-    tbody tr:hover {
-      background: #fafafa;
-    }
-
-    .status {
-      display: inline-block;
-      padding: 0.25rem 0.75rem;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      font-weight: 500;
-    }
-
-    .status.reading {
-      background: #fff3cd;
-      color: #856404;
-    }
-
-    .status.read {
-      background: #d4edda;
-      color: #155724;
-    }
-
+    /* Footer */
     footer {
       text-align: center;
       padding: 2rem 1rem;
@@ -182,52 +173,59 @@
 </head>
 
 <body>
+<!-- Menu Button -->
 <button class="menu-btn" onclick="toggleSidebar()">☰</button>
 
+<!-- Sidebar -->
 <div class="sidebar" id="sidebar">
   <h2>prendia.art</h2>
   <nav>
     <a href="index.html">Home</a>
-    <a href="thoughts.html">Thoughts</a>
+    <a href="thoughts.html" class="active">Thoughts</a>
     <a href="things.html">Other Things</a>
-    <a href="reading.html" class="active">Reading List</a>
+    <a href="reading.html">Reading List</a>
     <a href="about.html">About</a>
     <a href="contact.html">Contact</a>
   </nav>
 </div>
 
+<!-- Overlay -->
 <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
 
+<!-- Main Content -->
 <div class="content">
-  <h1>Reading List</h1>
-  <p class="intro">Books I'm reading or have read. Always looking for recommendations.</p>
+  <h1>Thoughts</h1>
+  <p class="intro">Some thoughts I've written down. Let me know if any take your fancy.</p>
 
-  <table>
-    <thead>
-    <tr>
-      <th>Book</th>
-      <th>Author</th>
-      <th>Status</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td>The Cosmic Serpent</td>
-      <td>Jeremy Narby</td>
-      <td><span class="status read">Read</span></td>
-    </tr>
-    <tr>
-      <td>Other Minds</td>
-      <td>Peter Godfrey-Smith</td>
-      <td><span class="status read">Read</span></td>
-    </tr>
-    <tr>
-      <td>Modern Man in Search of a Soul</td>
-      <td>Carl Jung</td>
-      <td><span class="status reading">Reading</span></td>
-    </tr>
-    </tbody>
-  </table>
+  <div class="essay-list">
+    <div class="essay-item">
+      <a href="thoughts/emergence-birds.html">
+        <h3>Emergence in Flocking of Birds</h3>
+        <p>Exploring how complex patterns arise from simple rules in nature</p>
+      </a>
+    </div>
+
+    <div class="essay-item">
+      <a href="#">
+        <h3>Modern Man in Search of a Soul - Carl Jung</h3>
+        <p>Reflections on Jung's exploration of the psyche and modern disconnection</p>
+      </a>
+    </div>
+
+    <div class="essay-item">
+      <a href="#">
+        <h3>The Cosmic Serpent - Jeremy Narby</h3>
+        <p>On DNA, shamanism, and indigenous knowledge systems</p>
+      </a>
+    </div>
+
+    <div class="essay-item">
+      <a href="#">
+        <h3>Other Minds - Peter Godfrey-Smith</h3>
+        <p>What octopuses can teach us about consciousness and intelligence</p>
+      </a>
+    </div>
+  </div>
 </div>
 
 <footer>© 2025 Prendia Qehaja</footer>
