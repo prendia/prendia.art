@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About - prendia.art</title>
+  <title>Reading List - prendia.art</title>
 
   <style>
     * {
@@ -104,31 +104,84 @@
     }
 
     .content {
-      max-width: 700px;
+      max-width: 900px;
       margin: 0 auto;
       padding: 6rem 2rem 4rem 2rem;
     }
 
     h1 {
       font-size: 2.5rem;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
       color: #222;
     }
 
-    p {
+    .intro {
       font-size: 1.1rem;
       color: #555;
-      margin-bottom: 1.5rem;
-      line-height: 1.8;
+      margin-bottom: 3rem;
     }
 
-    .quote {
-      font-style: italic;
-      color: #666;
-      border-left: 4px solid #222;
-      padding-left: 1.5rem;
-      margin: 2rem 0;
+
+    .thought-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
     }
+
+    .thought-item {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .thought-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .thought-item h3 {
+      margin-bottom: 0.5rem;
+      color: #222;
+      font-size: 1.4rem;
+    }
+
+    .thought-item a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .thought-item p {
+      color: #666;
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    thead {
+      background: #222;
+      color: #fff;
+    }
+
+    th {
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    td {
+      padding: 1rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:hover {
+      background: #fafafa;
+    }
+
 
     footer {
       text-align: center;
@@ -152,8 +205,8 @@
     <a href="index.html">Home</a>
     <a href="thoughts.html">Thoughts</a>
     <a href="artspace.html">Art Space</a>
-    <a href="academic.html">Academic Archive</a>
-    <a href="about.html" class="active">About</a>
+    <a href="academic.html" class="active">Academic Archive</a>
+    <a href="about.html">About</a>
     <a href="contact.html">Contact</a>
   </nav>
 </div>
@@ -161,33 +214,29 @@
 <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
 
 <div class="content">
-  <h1>About</h1>
+  <h1>Academic Archive</h1>
+  <p class="intro">My background sits at the intersection of artificial intelligence and complex systems.
+    I'm particularly drawn to evolutionary computation: the idea that intelligence and behaviour can emerge from
+    simple rules over time. <br><br> My work includes genetic simulations, fractal modelling, computational biology,
+    agent-based systems and applied machine learning. <br><br>
 
-  <p> 23 years on this earth and I've only every truly understood what was going on for about 6 months in 2012. Sadly,
-  that window has closed. </p>
+    On the applied side, I've been involved in group projects such as creating an amphibious robot and ...
 
-  <p> Growing up, I found much comfort in maths: to ask one question and to have only one answer.
-  No ambiguity. No loose ends. For 2 + 2 = 4 and for that to be that. I spent my teenage years looking for those same easy answers
-  everywhere else in life and, weirdly, found absolutely none of it. </p>
+    Individual projects include using eye-tracking for attention-awareness system using support vector
+    machines (SVMs).</p>
 
-  <p> And so, five years into my completely mathsy computer science and AI degrees, I discovered that life, in fact,
-  does not equal 4. </p>
+  <div class="thought-list">
+    <div class="thought-item">
+      <a href="thoughts/emergence-birds.html">
+        <h3>Emergence in Flocking of Birds</h3>
+        <p>Exploring how complex patterns arise from simple rules in nature</p>
+        <br>
+        <h5> 7 Mar 2026 | ~ 10 minutes </h5>
+      </a>
+    </div>
 
-  <p> There are unsolvable questions. There can be an infinite number of answers. There are also, apparently, different
-  sizes to those infinities????</p>
-
-  <p> I was not warned of this strangeness. </p>
-
-  <p> And so, at this crossroads, I find myself reading the works of those who came before, looking at their art
-  and perhaps beginning to see what they tried to tell us. </p>
-
-  <p> For this reason, this little corner of the internet ends with .art. Because whatever it is I'm doing here,
-  I'm paying attention.</p>
-
-  <div class="quote">
-    <p>"I sing. I work. I'm a regular human being. I eat, I sleep and shit just like you fella. OK??"</p>
-    <p>— Amy Winehouse</p>
   </div>
+
 </div>
 
 <footer>© 2026 Prendia Qehaja</footer>

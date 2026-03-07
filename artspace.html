@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>prendia.art - Welcome</title>
+    <title>Other Things - prendia.art</title>
 
     <style>
         * {
@@ -19,7 +19,6 @@
             line-height: 1.6;
         }
 
-        /* Hamburger Menu Button */
         .menu-btn {
             position: fixed;
             top: 2rem;
@@ -39,7 +38,6 @@
             transform: scale(1.05);
         }
 
-        /* Sidebar */
         .sidebar {
             position: fixed;
             top: 0;
@@ -87,7 +85,6 @@
             color: #fff;
         }
 
-        /* Overlay */
         .overlay {
             position: fixed;
             top: 0;
@@ -106,34 +103,43 @@
             visibility: visible;
         }
 
-        /* Main Content */
         .content {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 6rem 2rem 4rem 2rem;
         }
 
         h1 {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
             color: #222;
         }
 
-        p {
-            font-size: 1.2rem;
+        .intro {
+            font-size: 1.1rem;
             color: #555;
-            margin-bottom: 1.5rem;
-            line-height: 1.8;
+            margin-bottom: 3rem;
         }
 
-        .tagline {
-            font-size: 1.2rem;
+        .coming-soon {
+            background: #fff;
+            padding: 4rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .coming-soon h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #222;
+        }
+
+        .coming-soon p {
             color: #666;
-            font-style: italic;
-            margin-top: 3rem;
+            font-size: 1.1rem;
         }
 
-        /* Footer */
         footer {
             text-align: center;
             padding: 2rem 1rem;
@@ -145,55 +151,33 @@
 </head>
 
 <body>
-<!-- Menu Button -->
 <button class="menu-btn" onclick="toggleSidebar()">☰</button>
 
-<!-- Sidebar -->
 <div class="sidebar" id="sidebar">
     <br>
     <br>
     <br>
     <h2>prendia.art</h2>
     <nav>
-        <a href="index.html" class="active">Home</a>
+        <a href="index.html">Home</a>
         <a href="thoughts.html">Thoughts</a>
-        <a href="artspace.html">Art Space</a>
+        <a href="artspace.html" class="active">Art Space</a>
         <a href="academic.html">Academic Archive</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
     </nav>
 </div>
 
-<!-- Overlay -->
 <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
 
-<!-- Main Content -->
 <div class="content">
-    <h1>Home</h1>
+    <h1>Art Space</h1>
+    <p class="intro">Visual explorations and creative experiments.</p>
 
-    <p> Hi, my name is Prendia, I'm an Artificial Intelligence post-graduate.
-        I created this website to serve as a blog space for ideas, an art-space portfolio and an academic archive. </p>
-
-    <p>  </p>
-
-    <h2> Sections of the website: </h2>
-    <p> <b> Thoughts </b> ~ A space for short reads on new ideas. </p>
-    <p> <b> Art Space </b> ~ Freelance work helping artists build an online presence, because technology should open
-        doors for connection and creativity, not close them.</p>
-    <p> <b> Academic Archive </b> ~ My academic research and writing, kept here in case the academic world pulls me back. </p>
-
-    <h2> About </h2>
-
-    <p> Technology can be really cool. To tell someone living 50 years ago that you could listen to The Beatles anytime
-        using a brick in your pocket would knock their socks off.</p>
-
-    <p> Technology can be really cool and somehow we've found ourselves missing the mark. More than that, I think it
-        is costing us something. We're staring at screens while the things that have connected humans across centuries
-        ~visual arts, music, storytelling~ are losing their audience. I can't change the direction the industry
-        is heading, but I can use what I know to build a stronger presence for the things that connect us.</p>
-
-    <p> This is my small ripple in the water to push back and give art an online presence.<br><br> </p>
-
+    <div class="coming-soon">
+        <h2>Coming Soon</h2>
+        <p>This section is still growing. Check back later for art, photography and website development.</p>
+    </div>
 </div>
 
 <footer>© 2026 Prendia Qehaja</footer>
@@ -207,7 +191,6 @@
         overlay.classList.toggle('active');
     }
 
-    // Close sidebar when pressing Escape key
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             document.getElementById('sidebar').classList.remove('open');
