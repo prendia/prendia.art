@@ -6,8 +6,6 @@ tags: history, etymology, society
 description: Exploring the evolution of the phrase 'livelong day' in the progression of society
 ---
 
-Draft 3 - livelong days context
-
 # The Livelong Day
 
 Some days are livelong days.
