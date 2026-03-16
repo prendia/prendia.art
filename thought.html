@@ -295,7 +295,7 @@
 
     if (thoughtName) {
         // Fetch the markdown file
-        fetch(`./thoughts/${thoughtName}.md`)
+        fetch('thoughts/' + thoughtName + '.md')
             .then(response => {
                 if (!response.ok) throw new Error('Thought not found');
                 return response.text();
