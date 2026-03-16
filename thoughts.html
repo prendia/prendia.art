@@ -19,7 +19,6 @@
       line-height: 1.6;
     }
 
-    /* Hamburger Menu Button */
     .menu-btn {
       position: fixed;
       top: 2rem;
@@ -39,7 +38,6 @@
       transform: scale(1.05);
     }
 
-    /* Sidebar */
     .sidebar {
       position: fixed;
       top: 0;
@@ -51,6 +49,7 @@
       transition: left 0.3s ease;
       z-index: 150;
       padding: 2rem;
+      overflow-y: auto;
     }
 
     .sidebar.open {
@@ -87,7 +86,6 @@
       color: #fff;
     }
 
-    /* Overlay */
     .overlay {
       position: fixed;
       top: 0;
@@ -106,7 +104,6 @@
       visibility: visible;
     }
 
-    /* Main Content */
     .content {
       max-width: 800px;
       margin: 0 auto;
@@ -122,7 +119,34 @@
     .intro {
       font-size: 1.1rem;
       color: #555;
+      margin-bottom: 2rem;
+    }
+
+    .filter-buttons {
+      display: flex;
+      gap: 0.75rem;
       margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 0.5rem 1rem;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+    }
+
+    .filter-btn:hover {
+      background: #f0f0f0;
+    }
+
+    .filter-btn.active {
+      background: #222;
+      color: #fff;
+      border-color: #222;
     }
 
     .thought-list {
@@ -161,7 +185,16 @@
       margin: 0;
     }
 
-    /* Footer */
+    .category-tag {
+      display: inline-block;
+      background: #f0f0f0;
+      color: #666;
+      padding: 0.25rem 0.75rem;
+      border-radius: 15px;
+      font-size: 0.85rem;
+      margin-top: 0.75rem;
+    }
+
     footer {
       text-align: center;
       padding: 2rem 1rem;
@@ -173,10 +206,8 @@
 </head>
 
 <body>
-<!-- Menu Button -->
 <button class="menu-btn" onclick="toggleSidebar()">☰</button>
 
-<!-- Sidebar -->
 <div class="sidebar" id="sidebar">
   <br>
   <br>
@@ -192,30 +223,110 @@
   </nav>
 </div>
 
-<!-- Overlay -->
 <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
 
-<!-- Main Content -->
 <div class="content">
   <h1>Thoughts</h1>
-  <p class="intro"> A reading time estimate is given below each heading. </p>
+  <p class="intro">  </p>
 
-  <div class="thought-list">
+  <div class="filter-buttons" id="filter-buttons">
+    <button class="filter-btn active" onclick="filterThoughts('all')">All</button>
+    <!-- Categories will be auto-generated from thoughts -->
+  </div>
 
-    <div class="thought-item">
-      <a href="thoughts/painting-restoration.html">
-        <h3>Painting Restoration</h3>
-        <p>Exploring the idea behind holding space for an artist you'll never meet</p>
-        <br>
-        <h5> 7 Mar 2026 | ~ 10 minutes </h5>
-      </a>
-    </div>
+  <div class="thought-list" id="thought-list">
+    <!-- Thoughts will be loaded here -->
   </div>
 </div>
 
 <footer>© 2026 Prendia Qehaja</footer>
 
 <script>
+  // Define your thoughts with metadata
+  const thoughts = [
+    {
+      name: 'painting-restoration',
+      title: 'Painting Restoration',
+      description: 'Exploring the idea behind holding space for an artist you\'ll never meet',
+      category: 'art',
+      date: '7 Mar 2026',
+      readTime: '10 minutes'
+    },
+    {
+      name: 'all-livelong-day',
+      title: 'All Livelong Day',
+      description: 'Exploring the idea of the \'Livelong\' day in relation to the progression of society',
+      category: 'history',
+      date: '16 Mar 2026',
+      readTime: '15 minutes'
+    },
+    // Add more thoughts here as you create them
+    // {
+    //   name: 'another-thought',
+    //   title: 'Another Thought',
+    //   description: 'Description here',
+    //   category: 'psychology',
+    //   date: '10 Mar 2026',
+    //   readTime: '8 minutes'
+    // }
+  ];
+
+  // Get unique categories
+  const categories = [...new Set(thoughts.map(t => t.category))];
+
+  // Generate category filter buttons
+  const filterButtons = document.getElementById('filter-buttons');
+  categories.forEach(category => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn';
+    btn.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+    btn.onclick = () => filterThoughts(category);
+    filterButtons.appendChild(btn);
+  });
+
+  // Generate thought list
+  const thoughtList = document.getElementById('thought-list');
+  thoughts.forEach(thought => {
+    const thoughtDiv = document.createElement('div');
+    thoughtDiv.className = 'thought-item';
+    thoughtDiv.dataset.category = thought.category;
+
+    thoughtDiv.innerHTML = `
+      <a href="thought.html?name=${thought.name}">
+        <h3>${thought.title}</h3>
+        <p>${thought.description}</p>
+        <span class="category-tag">${thought.category.charAt(0).toUpperCase() + thought.category.slice(1)}</span>
+        <br>
+        <h5>${thought.date} | ~${thought.readTime}</h5>
+      </a>
+    `;
+
+    thoughtList.appendChild(thoughtDiv);
+  });
+
+  function filterThoughts(category) {
+    const thoughtItems = document.querySelectorAll('.thought-item');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+
+    // Update active button
+    filterBtns.forEach(btn => {
+      btn.classList.remove('active');
+      if ((category === 'all' && btn.textContent === 'All') ||
+              (btn.textContent.toLowerCase() === category)) {
+        btn.classList.add('active');
+      }
+    });
+
+    // Show/hide thoughts
+    thoughtItems.forEach(thought => {
+      if (category === 'all' || thought.dataset.category === category) {
+        thought.style.display = 'block';
+      } else {
+        thought.style.display = 'none';
+      }
+    });
+  }
+
   function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');

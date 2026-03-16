@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id="page-title">Thought - prendia.art</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background-color: #f8f8f8;
+            color: #222;
+            line-height: 1.6;
+        }
+
+        .menu-btn {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 200;
+            background: #fff;
+            border: none;
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100vh;
+            background: #fff;
+            box-shadow: 2px 0 15px rgba(0,0,0,0.1);
+            transition: left 0.3s ease;
+            z-index: 150;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 2rem;
+            color: #222;
+            font-size: 1.5rem;
+        }
+
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .sidebar nav a {
+            text-decoration: none;
+            color: #222;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            transition: background 0.2s ease;
+            font-weight: 500;
+        }
+
+        .sidebar nav a:hover {
+            background: #f0f0f0;
+        }
+
+        .sidebar nav a.active {
+            background: #222;
+            color: #fff;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 100;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .thought-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 6rem 2rem 4rem 2rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: #666;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .back-link:hover {
+            color: #222;
+        }
+
+        .back-link::before {
+            content: "← ";
+        }
+
+        .thought-header {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #222;
+            line-height: 1.2;
+        }
+
+        .thought-meta {
+            color: #888;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-tag {
+            display: inline-block;
+            background: #222;
+            color: #fff;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
+        .thought-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .thought-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .thought-content h2 {
+            font-size: 1.8rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            color: #222;
+        }
+
+        .thought-content h3 {
+            font-size: 1.4rem;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            color: #222;
+        }
+
+        .thought-content blockquote {
+            border-left: 4px solid #222;
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: #555;
+        }
+
+        .thought-content ul, .thought-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+
+        .thought-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .thought-content a {
+            color: #222;
+            text-decoration: underline;
+        }
+
+        .thought-content a:hover {
+            color: #555;
+        }
+
+        .thought-footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #ddd;
+        }
+
+        .thought-footer .back-link {
+            margin-bottom: 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: #888;
+            margin-top: 4rem;
+        }
+
+    </style>
+</head>
+
+<body>
+<button class="menu-btn" onclick="toggleSidebar()">☰</button>
+
+<div class="sidebar" id="sidebar">
+    <br>
+    <br>
+    <br>
+    <h2>prendia.art</h2>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="thoughts.html" class="active">Thoughts</a>
+        <a href="artspace.html">Art Space</a>
+        <a href="academic.html">Academic Archive</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+</div>
+
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<div class="thought-container">
+    <a href="thoughts.html" class="back-link">Back to thoughts</a>
+
+    <div class="thought-header">
+        <h1 id="thought-title">Loading...</h1>
+        <div class="thought-meta" id="thought-meta"></div>
+        <div id="category-container"></div>
+    </div>
+
+    <div class="thought-content" id="thought-content">
+        Loading thought...
+    </div>
+
+    <div class="thought-footer">
+        <a href="thoughts.html" class="back-link">Back to thoughts</a>
+    </div>
+</div>
+
+<footer>© 2026 Prendia Qehaja</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+    // Get thought name from URL: thought.html?name=painting-restoration
+    const params = new URLSearchParams(window.location.search);
+    const thoughtName = params.get('name');
+
+    function parseFrontmatter(markdown) {
+        const frontmatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
+        const match = markdown.match(frontmatterRegex);
+
+        if (!match) {
+            return { metadata: {}, content: markdown };
+        }
+
+        const frontmatter = match[1];
+        const content = match[2];
+        const metadata = {};
+
+        frontmatter.split('\n').forEach(line => {
+            const [key, ...valueParts] = line.split(':');
+            if (key && valueParts.length) {
+                metadata[key.trim()] = valueParts.join(':').trim();
+            }
+        });
+
+        return { metadata, content };
+    }
+
+    if (thoughtName) {
+        // Fetch the markdown file
+        fetch(`thoughts/${thoughtName}.md`)
+            .then(response => {
+                if (!response.ok) throw new Error('Thought not found');
+                return response.text();
+            })
+            .then(markdown => {
+                // Parse frontmatter and content
+                const { metadata, content } = parseFrontmatter(markdown);
+
+                // Parse and display markdown content
+                const html = marked.parse(content);
+                document.getElementById('thought-content').innerHTML = html;
+
+                // Extract title from first # heading in markdown
+                const titleMatch = content.match(/^# (.+)$/m);
+                if (titleMatch) {
+                    const title = titleMatch[1];
+                    document.getElementById('thought-title').textContent = title;
+                    document.getElementById('page-title').textContent = `${title} - prendia.art`;
+                }
+
+                // Display metadata
+                let metaText = '';
+                if (metadata.date) {
+                    metaText += metadata.date;
+                }
+                if (metadata.readTime) {
+                    metaText += ` | ~${metadata.readTime}`;
+                }
+                if (metaText) {
+                    document.getElementById('thought-meta').textContent = metaText;
+                }
+
+                // Display category tag
+                if (metadata.category) {
+                    const categoryTag = document.createElement('span');
+                    categoryTag.className = 'category-tag';
+                    categoryTag.textContent = metadata.category.charAt(0).toUpperCase() + metadata.category.slice(1);
+                    document.getElementById('category-container').appendChild(categoryTag);
+                }
+            })
+            .catch(error => {
+                document.getElementById('thought-content').innerHTML =
+                    '<p>Thought not found. <a href="thoughts.html">Back to thoughts</a></p>';
+                console.error('Error loading thought:', error);
+            });
+    } else {
+        document.getElementById('thought-content').innerHTML =
+            '<p>No thought specified. <a href="thoughts.html">Back to thoughts</a></p>';
+    }
+
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        sidebar.classList.toggle('open');
+        overlay.classList.toggle('active');
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('active');
+        }
+    });
+</script>
+</body>
+</html>
