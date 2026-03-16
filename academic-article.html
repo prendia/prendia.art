@@ -316,7 +316,7 @@
 
     if (articleName) {
         // Fetch the markdown file
-        fetch(`academic/${articleName}.md`)
+        fetch(`./academic/${articleName}.md`)
             .then(response => {
                 if (!response.ok) throw new Error('Article not found');
                 return response.text();
