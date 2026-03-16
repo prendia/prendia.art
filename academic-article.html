@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id="page-title">Academic Article - prendia.art</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background-color: #f8f8f8;
+            color: #222;
+            line-height: 1.6;
+        }
+
+        .menu-btn {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 200;
+            background: #fff;
+            border: none;
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100vh;
+            background: #fff;
+            box-shadow: 2px 0 15px rgba(0,0,0,0.1);
+            transition: left 0.3s ease;
+            z-index: 150;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 2rem;
+            color: #222;
+            font-size: 1.5rem;
+        }
+
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .sidebar nav a {
+            text-decoration: none;
+            color: #222;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            transition: background 0.2s ease;
+            font-weight: 500;
+        }
+
+        .sidebar nav a:hover {
+            background: #f0f0f0;
+        }
+
+        .sidebar nav a.active {
+            background: #222;
+            color: #fff;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 100;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .article-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 6rem 2rem 4rem 2rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: #666;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .back-link:hover {
+            color: #222;
+        }
+
+        .back-link::before {
+            content: "← ";
+        }
+
+        .article-header {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #222;
+            line-height: 1.2;
+        }
+
+        .article-meta {
+            color: #888;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-tag {
+            display: inline-block;
+            background: #222;
+            color: #fff;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
+        .article-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .article-content h2 {
+            font-size: 1.8rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            color: #222;
+        }
+
+        .article-content h3 {
+            font-size: 1.4rem;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            color: #222;
+        }
+
+        .article-content blockquote {
+            border-left: 4px solid #222;
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: #555;
+        }
+
+        .article-content ul, .article-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+
+        .article-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .article-content a {
+            color: #222;
+            text-decoration: underline;
+        }
+
+        .article-content a:hover {
+            color: #555;
+        }
+
+        .article-content code {
+            background: #f5f5f5;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+        }
+
+        .article-content pre {
+            background: #f5f5f5;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+
+        .article-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .article-footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #ddd;
+        }
+
+        .article-footer .back-link {
+            margin-bottom: 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: #888;
+            margin-top: 4rem;
+        }
+
+    </style>
+</head>
+
+<body>
+<button class="menu-btn" onclick="toggleSidebar()">☰</button>
+
+<div class="sidebar" id="sidebar">
+    <br>
+    <br>
+    <br>
+    <h2>prendia.art</h2>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="thoughts.html">Thoughts</a>
+        <a href="artspace.html">Art Space</a>
+        <a href="academic.html" class="active">Academic Archive</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+</div>
+
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<div class="article-container">
+    <a href="academic.html" class="back-link">Back to Academic Archive</a>
+
+    <div class="article-header">
+        <h1 id="article-title">Loading...</h1>
+        <div class="article-meta" id="article-meta"></div>
+        <div id="category-container"></div>
+    </div>
+
+    <div class="article-content" id="article-content">
+        Loading article...
+    </div>
+
+    <div class="article-footer">
+        <a href="academic.html" class="back-link">Back to Academic Archive</a>
+    </div>
+</div>
+
+<footer>© 2026 Prendia Qehaja</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+    // Get article name from URL: academic-article.html?name=emergence-birds
+    const params = new URLSearchParams(window.location.search);
+    const articleName = params.get('name');
+
+    function parseFrontmatter(markdown) {
+        const frontmatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
+        const match = markdown.match(frontmatterRegex);
+
+        if (!match) {
+            return { metadata: {}, content: markdown };
+        }
+
+        const frontmatter = match[1];
+        const content = match[2];
+        const metadata = {};
+
+        frontmatter.split('\n').forEach(line => {
+            const [key, ...valueParts] = line.split(':');
+            if (key && valueParts.length) {
+                metadata[key.trim()] = valueParts.join(':').trim();
+            }
+        });
+
+        return { metadata, content };
+    }
+
+    if (articleName) {
+        // Fetch the markdown file
+        fetch(`academic/${articleName}.md`)
+            .then(response => {
+                if (!response.ok) throw new Error('Article not found');
+                return response.text();
+            })
+            .then(markdown => {
+                // Parse frontmatter and content
+                const { metadata, content } = parseFrontmatter(markdown);
+
+                // Parse and display markdown content
+                const html = marked.parse(content);
+                document.getElementById('article-content').innerHTML = html;
+
+                // Extract title from first # heading in markdown
+                const titleMatch = content.match(/^# (.+)$/m);
+                if (titleMatch) {
+                    const title = titleMatch[1];
+                    document.getElementById('article-title').textContent = title;
+                    document.getElementById('page-title').textContent = `${title} - prendia.art`;
+                }
+
+                // Display metadata
+                let metaText = '';
+                if (metadata.date) {
+                    metaText += metadata.date;
+                }
+                if (metadata.readTime) {
+                    metaText += ` | ~${metadata.readTime}`;
+                }
+                if (metaText) {
+                    document.getElementById('article-meta').textContent = metaText;
+                }
+
+                // Display category tag
+                if (metadata.category) {
+                    const categoryTag = document.createElement('span');
+                    categoryTag.className = 'category-tag';
+                    // Format category: evolutionary-computation → Evolutionary Computation
+                    const formatted = metadata.category.split('-').map(word =>
+                        word.charAt(0).toUpperCase() + word.slice(1)
+                    ).join(' ');
+                    categoryTag.textContent = formatted;
+                    document.getElementById('category-container').appendChild(categoryTag);
+                }
+            })
+            .catch(error => {
+                document.getElementById('article-content').innerHTML =
+                    '<p>Article not found. <a href="academic.html">Back to Academic Archive</a></p>';
+                console.error('Error loading article:', error);
+            });
+    } else {
+        document.getElementById('article-content').innerHTML =
+            '<p>No article specified. <a href="academic.html">Back to Academic Archive</a></p>';
+    }
+
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        sidebar.classList.toggle('open');
+        overlay.classList.toggle('active');
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('active');
+        }
+    });
+</script>
+</body>
+</html>
