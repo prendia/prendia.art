@@ -1,5 +1,5 @@
 ---
-category: art
+category: art, philosophy
 date: Saturday 7th March 2026
 readTime: 10 minutes
 tags: restoration, art, philosophy, creativity
