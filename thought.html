@@ -304,17 +304,17 @@
                 // Parse frontmatter and content
                 const { metadata, content } = parseFrontmatter(markdown);
 
-                // Parse and display markdown content
-                const html = marked.parse(content);
-                document.getElementById('thought-content').innerHTML = html;
-
-                // Extract title from first # heading in markdown
                 const titleMatch = content.match(/^# (.+)$/m);
+                let contentWithoutTitle = content;
                 if (titleMatch) {
                     const title = titleMatch[1];
                     document.getElementById('thought-title').textContent = title;
                     document.getElementById('page-title').textContent = `${title} - prendia.art`;
+                    contentWithoutTitle = content.replace(/^# .+\n?/m, '');
                 }
+
+                const html = marked.parse(contentWithoutTitle);
+                document.getElementById('thought-content').innerHTML = html;
 
                 // Display metadata
                 let metaText = '';
@@ -328,12 +328,17 @@
                     document.getElementById('thought-meta').textContent = metaText;
                 }
 
-                // Display category tag
+                // Display category tags (handles both single and multiple)
                 if (metadata.category) {
-                    const categoryTag = document.createElement('span');
-                    categoryTag.className = 'category-tag';
-                    categoryTag.textContent = metadata.category.charAt(0).toUpperCase() + metadata.category.slice(1);
-                    document.getElementById('category-container').appendChild(categoryTag);
+                    // Split by comma in case there are multiple categories
+                    const categories = metadata.category.split(',').map(c => c.trim());
+
+                    categories.forEach(cat => {
+                        const categoryTag = document.createElement('span');
+                        categoryTag.className = 'category-tag';
+                        categoryTag.textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
+                        document.getElementById('category-container').appendChild(categoryTag);
+                    });
                 }
             })
             .catch(error => {

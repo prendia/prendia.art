@@ -185,6 +185,13 @@
       margin: 0;
     }
 
+    .category-tags {
+      margin-top: 0.75rem;
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
     .category-tag {
       display: inline-block;
       background: #f0f0f0;
@@ -192,7 +199,6 @@
       padding: 0.25rem 0.75rem;
       border-radius: 15px;
       font-size: 0.85rem;
-      margin-top: 0.75rem;
     }
 
     footer {
@@ -248,7 +254,7 @@
       name: 'painting-restoration',
       title: 'Painting Restoration',
       description: 'Exploring the idea behind holding space for an artist you\'ll never meet',
-      category: 'art',
+      categories: ['art', 'philosophy'],
       date: '7 Mar 2026',
       readTime: '10 minutes'
     },
@@ -256,31 +262,23 @@
       name: 'all-livelong-day',
       title: 'All Livelong Day',
       description: 'Exploring the evolution of the phrase \'livelong day\' in the progression of society',
-      category: 'history',
+      categories: ['history', 'language'],
       date: '16 Mar 2026',
-      readTime: '10 minutes'
+      readTime: '20 minutes'
     },
     {
       name: 'all-livelong-day-companion',
       title: 'All Livelong Day - Companion Piece',
-      description: 'Deepening the connection to the idea of the \'livelong day\' across different media.',
-      category: 'connection',
+      description: 'Deepening the connection to the idea of the \'livelong day\' across different media',
+      categories: ['companion'],
       date: '16 Mar 2026',
       readTime: '10 minutes'
     },
-    // Add more thoughts here as you create them
-    // {
-    //   name: 'another-thought',
-    //   title: 'Another Thought',
-    //   description: 'Description here',
-    //   category: 'psychology',
-    //   date: '10 Mar 2026',
-    //   readTime: '8 minutes'
-    // }
   ];
 
-  // Get unique categories
-  const categories = [...new Set(thoughts.map(t => t.category))];
+  // Get unique categories from all thoughts
+  const allCategories = thoughts.flatMap(t => t.categories);
+  const categories = [...new Set(allCategories)];
 
   // Generate category filter buttons
   const filterButtons = document.getElementById('filter-buttons');
@@ -297,13 +295,21 @@
   thoughts.forEach(thought => {
     const thoughtDiv = document.createElement('div');
     thoughtDiv.className = 'thought-item';
-    thoughtDiv.dataset.category = thought.category;
+    // Store categories as a comma-separated string for filtering
+    thoughtDiv.dataset.categories = thought.categories.join(',');
+
+    // Create category tags HTML
+    const categoryTagsHTML = thought.categories.map(cat =>
+            `<span class="category-tag">${cat.charAt(0).toUpperCase() + cat.slice(1)}</span>`
+    ).join('');
 
     thoughtDiv.innerHTML = `
       <a href="./thought.html?name=${thought.name}">
         <h3>${thought.title}</h3>
         <p>${thought.description}</p>
-        <span class="category-tag">${thought.category.charAt(0).toUpperCase() + thought.category.slice(1)}</span>
+        <div class="category-tags">
+          ${categoryTagsHTML}
+        </div>
         <br>
         <h5>${thought.date} | ~${thought.readTime}</h5>
       </a>
@@ -325,9 +331,11 @@
       }
     });
 
-    // Show/hide thoughts
+    // Show/hide thoughts based on categories
     thoughtItems.forEach(thought => {
-      if (category === 'all' || thought.dataset.category === category) {
+      const thoughtCategories = thought.dataset.categories.split(',');
+
+      if (category === 'all' || thoughtCategories.includes(category)) {
         thought.style.display = 'block';
       } else {
         thought.style.display = 'none';
